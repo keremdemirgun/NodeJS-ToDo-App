@@ -1,4 +1,4 @@
-import {DatabaseSync} from 'node:sqlite3';
+import {DatabaseSync} from 'node:sqlite';
 const db = new DatabaseSync(':memory:');
 
 // Execute SQL statements to create tables and insert data
