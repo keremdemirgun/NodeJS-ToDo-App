@@ -5,8 +5,12 @@ import db from '../db.js';
 
 const router = express.Router();
 
+//reg new user /auth/register post
 router.post("/register", (req, res) => {
-    
+    // const body = req.body;
+    const {username, password} = req.body;
+    res.sendStatus(201);
+
 });
 
 

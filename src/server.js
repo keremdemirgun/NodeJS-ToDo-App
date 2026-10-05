@@ -27,7 +27,7 @@ app.get('/', (req, res) => {
 
 // my routes
 app.use("/auth", authRoutes);
-app.use("/todo", todoRoutes);
+app.use("/todos", todoRoutes);
 
 
 app.listen(port, () => {
