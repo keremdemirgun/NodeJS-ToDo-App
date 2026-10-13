@@ -14,14 +14,22 @@ router.post("/register", (req, res) => {
     
     //save user to the db
     try{
-        const insertUser = db.prepare(`INSERT INTO users(username, password)
+        const insertUser = db.prepare(`INSERT INTO users (username, password)
             VALUES (?, ?)`);
 
         const result = insertUser.run(username, hashedPassword);
 
-        res.sendStatus(201);
+        const defaultTodo = `Hello :) Add yours first to-do!`;
+
+        const instertTodo = db.prepare(`INSERT INTO todos (user_id, task) VALUES (?, ?)`);
+        instertTodo.run(result.lastInsertRowid, defaultTodo);
+        
+        //create a token
+        const token = jwt.sign({id: result.lastInsertRowid}, process.env.JWT_SECRET, {expiresIn: '24h'})
+        res.json({ token });
+        
     }   catch(err){
-        cosnole.log(err.message);
+        console.log(err.message);
         res.sendStatus(503);
     }
 
